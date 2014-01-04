@@ -1,0 +1,10 @@
+## Interface: 50400
+## Title: BagSaver
+## Version: 0.6.5
+## Notes: Keeps your bags clean of trash
+## Author: OneWingedAngel
+## SavedVariablesPerCharacter: BagSaverConfig
+
+BagSaverTables.lua
+BagSaverUI.lua
+BagSaver.lua
