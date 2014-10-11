@@ -305,7 +305,6 @@ NonPrimaryArmor["WARRIOR"]["Post40"][MAIL] = 1
 --List of tools used in tradeskills
 local CraftingTools = {}
 BagSaverTables["CraftingTools"] = CraftingTools
-
 CraftingTools[6219] = "Arclight Spanner"
 CraftingTools[5956] = "Blacksmith Hammer"
 CraftingTools[40893] = "Bladed Pickaxe"
@@ -327,7 +326,6 @@ CraftingTools[39505] = "Virtuoso Inking Set"
 
 local FishingTools = {}
 BagSaverTables["FishingTools"] = FishingTools
-
 FishingTools[6811] = "Aquadynamic Fish Lens"
 FishingTools[6530] = "Nightcrawlers"
 FishingTools[6533] = "Aquadynamic Fish Attractor"
@@ -336,3 +334,7 @@ FishingTools[7307] = "Flesh Eating Worm"
 FishingTools[33820] = "Weather-Beaten Fishing Hat"
 FishingTools[34861] = "Sharpened Fish Hook"
 FishingTools[46006] = "Glow Worm"
+
+local Miscellaneous = {}
+BagSaverTables["Miscellaneous"] = Miscellaneous
+Miscellaneous[50741] = "Vile Fumigator's Mask"

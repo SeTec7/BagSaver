@@ -192,6 +192,8 @@ function BagSaver.IsJunkItem(item, itemTable)
 			    BagSaverTables["UnusableEquipment"][playerClass][item.class] ~= nil and 
 			    BagSaverTables["UnusableEquipment"][playerClass][item.class][item.subClass] ~= nil) then --item is soulbound and could never be equipped by the player's class
 				tinsert(itemTable[item.quality],item)
+				--print("Selling item because it's unusable and bound: ")
+				--BagSaver.DumpItem(item)
 				return true
 			end
 		end
@@ -229,6 +231,9 @@ function BagSaver.ItemIsExcludedFromNonPrimaryBound(item)
 	if item.equipSlot == "INVTYPE_CLOAK" then --Cloaks are all considered to be cloth, so they would be considered non-prmary for most classes
 		return true
 	end
+	if BagSaver.ItemIsMiscellaneousExcluded(item) then --Miscellaneous items that should not be auto-sold
+		return true
+	end
 	if BagSaver.ItemRequiresEngineering(item) then --Soulbound items that require engineering should not be sold
 		return true
 	end
@@ -261,6 +266,11 @@ function BagSaver.IsDisposableItem(item, itemTable)
 end
 
 function BagSaver.IsItemExcludedFromDisposal(item)
+	if BagSaver.ItemIsMiscellaneousExcluded(item) then
+		--print("Ignoring item because it's manually ignored: ")
+		--BagSaver.DumpItem(item)
+		return true
+	end
 	if BagSaver.GetConfigValue("exemptCraftingToolsFromDiscard") and BagSaver.ItemIsCraftingTool(item) then
 		--print("Ignoring item because it's a crafting tool: ")
 		--BagSaver.DumpItem(item)
@@ -341,6 +351,10 @@ function BagSaver.ItemRequiresFishing(item)
 	end
 
 	return false
+end
+
+function BagSaver.ItemIsMiscellaneousExcluded(item)
+	return BagSaverTables["Miscellaneous"][item.id] ~= nil
 end
 
 function BagSaver.ItemIsCraftingTool(item)

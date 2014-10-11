@@ -18,6 +18,11 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.6.6
+--------------------------------
+Added list of miscellaneous items to ignore for auto-sell, only current entry is Vile Fumigator's Mask
+Updated TOC for 6.0
+
 0.6.5
 --------------------------------
 Bug fixed: BagSaver could try to auto-sell items that weren't armor because they were below your best armor type
