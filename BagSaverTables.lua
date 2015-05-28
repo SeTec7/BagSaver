@@ -323,6 +323,7 @@ CraftingTools[44452] = "Runed Titanium Rod"
 CraftingTools[11145] = "Runed Truesilver Rod"
 CraftingTools[7005] = "Skinning Knife"
 CraftingTools[39505] = "Virtuoso Inking Set"
+CraftingTools[116913] = "Peon's Mining Pick"
 
 local FishingTools = {}
 BagSaverTables["FishingTools"] = FishingTools
@@ -338,3 +339,4 @@ FishingTools[46006] = "Glow Worm"
 local Miscellaneous = {}
 BagSaverTables["Miscellaneous"] = Miscellaneous
 Miscellaneous[50741] = "Vile Fumigator's Mask"
+Miscellaneous[116913] = "Peon's Mining Pick"

@@ -18,6 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.6.7
+--------------------------------
+Added Peon's Mining Pick to list of items to ignore for auto-sell, and made that functionality apply to unusable bound items
+
 0.6.6
 --------------------------------
 Added list of miscellaneous items to ignore for auto-sell, only current entry is Vile Fumigator's Mask

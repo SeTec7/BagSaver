@@ -188,13 +188,17 @@ function BagSaver.IsJunkItem(item, itemTable)
 			end
 		end
 		if BagSaver.GetConfigValue("autoSellUnusableBoundItems") then
-			if (item.isSoulbound and
-			    BagSaverTables["UnusableEquipment"][playerClass][item.class] ~= nil and 
-			    BagSaverTables["UnusableEquipment"][playerClass][item.class][item.subClass] ~= nil) then --item is soulbound and could never be equipped by the player's class
-				tinsert(itemTable[item.quality],item)
-				--print("Selling item because it's unusable and bound: ")
-				--BagSaver.DumpItem(item)
-				return true
+			if item.isSoulbound then
+				if BagSaver.ItemIsExcludedFromUnusableBound(item) then --Handle special cases and manual exclusions
+					return false
+				end
+				if (BagSaverTables["UnusableEquipment"][playerClass][item.class] ~= nil and 
+					BagSaverTables["UnusableEquipment"][playerClass][item.class][item.subClass] ~= nil) then --item is soulbound and could never be equipped by the player's class
+					tinsert(itemTable[item.quality],item)
+					--print("Selling item because it's unusable and bound: ")
+					--BagSaver.DumpItem(item)
+					return true
+				end
 			end
 		end
 		if BagSaver.GetConfigValue("autoSellNonPrimaryBoundArmor") then
@@ -225,6 +229,21 @@ function BagSaver.IsJunkItem(item, itemTable)
 		end
 	end
 	return false
+end
+
+function BagSaver.ItemIsExcludedFromUnusableBound(item)
+	if BagSaver.ItemIsMiscellaneousExcluded(item) then --Miscellaneous items that should not be auto-sold
+		return true
+	end
+	if BagSaver.ItemRequiresEngineering(item) then --Soulbound items that require engineering should not be sold
+		return true
+	end
+	if BagSaver.ItemRequiresFishing(item) then --Soulbound items that require fishing should not be sold
+		return true
+	end
+	if BagSaverTables["FishingTools"][item.id] then --Fishing Items that do not "require fishing"
+		return true
+	end
 end
 
 function BagSaver.ItemIsExcludedFromNonPrimaryBound(item)
