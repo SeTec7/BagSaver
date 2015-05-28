@@ -21,6 +21,7 @@ ChangeLog:
 0.6.7
 --------------------------------
 Added Peon's Mining Pick to list of items to ignore for auto-sell, and made that functionality apply to unusable bound items
+Updated TOC for 6.1.0
 
 0.6.6
 --------------------------------
