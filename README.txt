@@ -18,6 +18,12 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.6.8
+--------------------------------
+Added Gorepetal's Gentle Grasp to list of items to ignore for auto-sell
+Updated TOC for 6.2.3
+
+
 0.6.7
 --------------------------------
 Added Peon's Mining Pick to list of items to ignore for auto-sell, and made that functionality apply to unusable bound items

@@ -340,3 +340,4 @@ local Miscellaneous = {}
 BagSaverTables["Miscellaneous"] = Miscellaneous
 Miscellaneous[50741] = "Vile Fumigator's Mask"
 Miscellaneous[116913] = "Peon's Mining Pick"
+Miscellaneous[116916] = "Gorepetal's Gentle Grasp"
