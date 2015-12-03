@@ -18,6 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.6.8.1
+--------------------------------
+Removed possible nil object from error line
+
 0.6.8
 --------------------------------
 Added Gorepetal's Gentle Grasp to list of items to ignore for auto-sell
