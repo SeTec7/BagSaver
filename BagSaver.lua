@@ -101,7 +101,7 @@ function BagSaver.SellItemsToVendor(items)
 				end
 				UseContainerItem(item["bag"],item["slot"])
 			else
-				print(item["link"] .. " has moved! Not attempting to sell " .. newItemLink)
+				print(item["link"] .. " has moved! Not attempting to sell")
 			end
 		end
 	end
