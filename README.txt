@@ -18,8 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
-0.7
+0.7.0
 --------------------------------
+Added Demon Hunters and Warglaives to class/equipment tracking
+Updated list of non-optimal equipment for classes that no longer change armor type at level 40
 Updated TOC for 7.0.3
 
 0.6.8.1
