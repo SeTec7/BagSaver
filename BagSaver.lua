@@ -211,11 +211,6 @@ function BagSaver.IsJunkItem(item, itemTable)
                     --print("Selling item because it's below primary type: ")
                     --BagSaver.DumpItem(item)
 					return true
-				elseif BagSaverTables.ItemIsArmor(item) and playerLevel >= 40 and BagSaverTables["NonPrimaryArmor"][playerClass]["Post40"][item.subClass] ~= nil then --item is of an armor type below the primary type of the player's class after level 40
-					tinsert(itemTable[item.quality],item)
-                    --print("Selling item because it's below primary type post 40: ")
-                    --BagSaver.DumpItem(item)
-					return true
 				end
 			end
 		end
@@ -442,7 +437,7 @@ function BagSaver.SlashCmdHandler(msg, editbox)
 	elseif (string.lower(msg) == "dumpcraft") then
 		BagSaverTables.DumpCraftingToolsTable()
 	elseif (string.lower(msg) == "dumpfish") then
-		BagSaverTables.DumpToolsTable()
+		BagSaverTables.DumpFishingToolsTable()
 	elseif (string.lower(msg) == "reset") then
 		BagSaver.SetConfigToDefaults()
 	elseif (string.lower(msg) == "perf") then

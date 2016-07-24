@@ -18,6 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.7
+--------------------------------
+Updated TOC for 7.0.3
+
 0.6.8.1
 --------------------------------
 Removed possible nil object from error line

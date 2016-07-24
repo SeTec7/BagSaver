@@ -1,6 +1,6 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: BagSaver
-## Version: 0.6.8.1
+## Version: 0.7
 ## Notes: Keeps your bags clean of trash
 ## Author: OneWingedAngel
 ## SavedVariablesPerCharacter: BagSaverConfig
