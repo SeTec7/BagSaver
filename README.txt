@@ -18,6 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.8.0
+--------------------------------
+Updated TOC for 8.0
+
 0.7.0
 --------------------------------
 Added Demon Hunters and Warglaives to class/equipment tracking
