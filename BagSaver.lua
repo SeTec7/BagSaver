@@ -168,7 +168,7 @@ function BagSaver.BagSearch(addFoundItem)
 			local id = GetContainerItemID(bag,slot)
 			if id then --We're not looking at an empty slot
 				currentItem = BagSaver.BuildItemTable(bag,slot,id)
-				if addFoundItem(currentItem, itemsFound) then
+				if currentItem ~= nil and addFoundItem(currentItem, itemsFound) then
 					numItemsFound = numItemsFound + 1
 				end
 			end
@@ -192,8 +192,8 @@ function BagSaver.IsJunkItem(item, itemTable)
 				if BagSaver.ItemIsExcludedFromUnusableBound(item) then --Handle special cases and manual exclusions
 					return false
 				end
-				if (BagSaverTables["UnusableEquipment"][playerClass][item.class] ~= nil and 
-					BagSaverTables["UnusableEquipment"][playerClass][item.class][item.subClass] ~= nil) then --item is soulbound and could never be equipped by the player's class
+				if (BagSaverTables["UnusableEquipment"][playerClass][item.classID] ~= nil and 
+					BagSaverTables["UnusableEquipment"][playerClass][item.classID][item.subClassID] ~= nil) then --item is soulbound and could never be equipped by the player's class
 					tinsert(itemTable[item.quality],item)
 					--print("Selling item because it's unusable and bound: ")
 					--BagSaver.DumpItem(item)
@@ -206,7 +206,7 @@ function BagSaver.IsJunkItem(item, itemTable)
 				if BagSaver.ItemIsExcludedFromNonPrimaryBound(item) then --Handle special cases and manual exclusions
 					return false
 				end
-				if BagSaverTables.ItemIsArmor(item) and BagSaverTables["NonPrimaryArmor"][playerClass][item.subClass] ~= nil then --item is of an armor type below the primary type of the player's class
+				if BagSaverTables.ItemIsArmor(item) and BagSaverTables["NonPrimaryArmor"][playerClass][item.subClassID] ~= nil then --item is of an armor type below the primary type of the player's class
 					tinsert(itemTable[item.quality],item)
                     --print("Selling item because it's below primary type: ")
                     --BagSaver.DumpItem(item)
@@ -299,21 +299,25 @@ end
 
 function BagSaver.BuildItemTable(bag,slot,id)
 	local texture, count, locked, _, readable, lootable, link = GetContainerItemInfo(bag,slot)
-	local name, _, quality, iLevel, reqLevel, class, subClass, maxStack, equipSlot, _, value = GetItemInfo(id)
-	local itemTable = { id = id,
-				bag = bag, 
-				slot = slot, 
-				value = value, 
-				count = count, 
-				texture = texture, 
-				name = name, 
-				link = link, 
-				quality = quality, 
-				color = { GetItemQualityColor(quality) }, 
-				class = class, 
-				subClass = subClass, 
-				equipSlot = equipSlot }
+	local name, _link, quality, iLevel, reqLevel, class, subClass, maxStack, equipSlot, _iconID, value, classID, subClassID, bind, expacID, setID, isCraftingReagent = GetItemInfo(id)
 
+	if value == nil then
+		return nil
+	end
+	
+	local itemTable = {}
+	itemTable.id = id
+	itemTable.bag = bag
+	itemTable.slot = slot
+	itemTable.value = value
+	itemTable.count = count
+	itemTable.texture = texture
+	itemTable.name = name
+	itemTable.link = link
+	itemTable.quality = quality
+	itemTable.classID = classID
+	itemTable.subClassID = subClassID
+	itemTable.equipSlot = equipSlot
 	itemTable.isSoulbound = BagSaver.ItemIsSoulbound(itemTable)
 
 	return itemTable
@@ -438,6 +442,8 @@ function BagSaver.SlashCmdHandler(msg, editbox)
 		BagSaverTables.DumpCraftingToolsTable()
 	elseif (string.lower(msg) == "dumpfish") then
 		BagSaverTables.DumpFishingToolsTable()
+	elseif (string.lower(msg) == "dumpmisc") then
+		BagSaverTables.DumpMiscTable()
 	elseif (string.lower(msg) == "reset") then
 		BagSaver.SetConfigToDefaults()
 	elseif (string.lower(msg) == "perf") then

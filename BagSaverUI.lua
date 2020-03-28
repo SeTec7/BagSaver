@@ -196,7 +196,7 @@ function BagSaverUI.SetItemButtonInfo(itemButton, item)
 		_G[itemButton:GetName()].link = item.link
 		_G[itemButton:GetName().."IconTexture"]:SetTexture(item.texture);
 		local nameText = _G[itemButton:GetName().."Text"];
-		nameText:SetTextColor(unpack(item.color or {1, 1, 1, 1}));
+		nameText:SetTextColor(unpack(ITEM_QUALITY_COLORS[item.quality] or {1, 1, 1, 1}));
 		nameText:SetText(item.name);
 		local nameExtraText = _G[itemButton:GetName().."ExtraText"];
 		nameExtraText:SetTextColor(unpack({1, 1, 1, 1}));

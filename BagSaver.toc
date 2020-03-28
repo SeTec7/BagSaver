@@ -1,6 +1,6 @@
-## Interface: 80000
+## Interface: 80300
 ## Title: BagSaver
-## Version: 0.8.0
+## Version: 0.8.3
 ## Notes: Keeps your bags clean of trash
 ## Author: OneWingedAngel
 ## SavedVariablesPerCharacter: BagSaverConfig

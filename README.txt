@@ -18,6 +18,11 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.8.3
+--------------------------------
+Updated TOC for 8.3
+Refactored some code to account for AuctionHouse API changes
+
 0.8.0
 --------------------------------
 Updated TOC for 8.0
