@@ -4,7 +4,7 @@
 	Primary functions are auto-selling unwanted items
 	to a vendor, finding the least valuable item in 
 	your bags to discard and more.
-	Author: OneWingedAngel
+	Author: SeTec42
 
 --]]
 

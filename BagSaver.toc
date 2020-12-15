@@ -1,8 +1,8 @@
-## Interface: 80300
+## Interface: 90002
 ## Title: BagSaver
-## Version: 0.8.3
+## Version: 0.9.0
 ## Notes: Keeps your bags clean of trash
-## Author: OneWingedAngel
+## Author: SeTec42
 ## SavedVariablesPerCharacter: BagSaverConfig
 
 BagSaverTables.lua

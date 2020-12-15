@@ -18,6 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.9.0
+--------------------------------
+Updated TOC for 9.0
+
 0.8.3
 --------------------------------
 Updated TOC for 8.3
