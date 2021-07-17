@@ -386,7 +386,8 @@ end
 function BagSaver.ItemIsUselessForClass(item)
 	local playerClassLocal, playerClass = UnitClass("player")
 	if playerClass == "HUNTER" then
-		if BagSaverTables.ItemIsWeapon(item) and not BagSaverTables.ItemIsRangedWeapon(item) then
+		if BagSaverTables.ItemIsWeapon(item) then
+			if item.subClassID ~= LE_ITEM_WEAPON_POLEARM or not BagSaverTables.ItemIsRangedWeapon(item) then
 			return true
 		else
 			return false

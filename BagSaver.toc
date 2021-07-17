@@ -1,6 +1,6 @@
-## Interface: 90002
+## Interface: 90100
 ## Title: BagSaver
-## Version: 0.9.0
+## Version: 0.9.1
 ## Notes: Keeps your bags clean of trash
 ## Author: SeTec42
 ## SavedVariablesPerCharacter: BagSaverConfig
