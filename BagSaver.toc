@@ -1,8 +1,8 @@
-## Interface: 90100
+## Interface: 100000
 ## Title: BagSaver
-## Version: 0.9.1
 ## Notes: Keeps your bags clean of trash
 ## Author: SeTec42
+## Version: 0.10.0
 ## SavedVariablesPerCharacter: BagSaverConfig
 
 BagSaverTables.lua

@@ -74,8 +74,8 @@ function BagSaverUI.CreateConfigMenu()
 	local autoSell = BagSaverUI.CreateCheckButton("Auto-Sell", autoSellConfigPanel,"Enable automatic selling of \"junk\" to vendors", "autoSell", 'InterfaceOptionsCheckButtonTemplate')
 	autoSell:SetPoint('TOPLEFT', 10, -75)
 
-	local autoSellPrompt = BagSaverUI.CreateCheckButton("Prompt before Auto-Sell", autoSellConfigPanel,"Prompt before automatically selling anything to a vendor", "autoSellPrompt", 'InterfaceOptionsSmallCheckButtonTemplate')
-	autoSellPrompt:SetPoint('TOPLEFT', 150, -75)
+	local autoSellPrompt = BagSaverUI.CreateCheckButton("Prompt before Auto-Sell", autoSellConfigPanel,"Prompt before automatically selling anything to a vendor", "autoSellPrompt", 'InterfaceOptionsCheckButtonTemplate')
+	autoSellPrompt:SetPoint('TOPLEFT', 225, -75)
 	BagSaverUI.SetupDependentControl(autoSell,autoSellPrompt)
 
 	local autoSellGrayItems = BagSaverUI.CreateCheckButton("Gray Items", autoSellConfigPanel,"Consider gray items to be junk", "autoSellGrayItems", 'InterfaceOptionsCheckButtonTemplate')

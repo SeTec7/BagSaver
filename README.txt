@@ -18,6 +18,11 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.10.0
+--------------------------------
+UI code updates for 10.0
+Updated TOC for 10.0
+
 0.9.1
 --------------------------------
 Fix Hunters trying to sell Legion Survival weapon
