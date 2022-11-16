@@ -18,6 +18,12 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.10.02
+--------------------------------
+Evoker support added
+UI code updates for 10.0.2
+Updated TOC for 10.0.2
+
 0.10.0
 --------------------------------
 UI code updates for 10.0
