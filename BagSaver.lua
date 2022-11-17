@@ -90,16 +90,16 @@ function BagSaver.SellItemsToVendor(items)
 	for itemQuality=0,7 do
 		for i,item in pairs(items[itemQuality]) do
 			--Check to make sure the items haven't moved since we looked
-			local newTexture, newCount, newLocked, newQuality, newReadable, newLootable, newItemLink = GetContainerItemInfo(item["bag"], item["slot"]) 
-			if (item["link"] == newItemLink) then
+			local newContainerItemInfo = C_Container.GetContainerItemInfo(item["bag"], item["slot"]) 
+			if (item["link"] == newContainerItemInfo.hyperlink) then
 				if item["count"] == 1 then
-					print("BagSaver auto-selling: " .. newItemLink .. " for: " .. BagSaver.GetMoneyString(item.value))
+					print("BagSaver auto-selling: " .. newContainerItemInfo.hyperlink .. " for: " .. BagSaver.GetMoneyString(item.value))
 					totalProfit = totalProfit + item.value
 				else
-					print("BagSaver auto-selling: " .. newCount .. "x " .. newItemLink .. " for: " .. BagSaver.GetMoneyString(item.value * item.count))
+					print("BagSaver auto-selling: " .. newContainerItemInfo.stackCount .. "x " .. newContainerItemInfo.hyperlink .. " for: " .. BagSaver.GetMoneyString(item.value * item.count))
 					totalProfit = totalProfit + (item.value * item.count)
 				end
-				UseContainerItem(item["bag"],item["slot"])
+				C_Container.UseContainerItem(item["bag"],item["slot"])
 			else
 				print(item["link"] .. " has moved! Not attempting to sell")
 			end
@@ -164,8 +164,8 @@ function BagSaver.BagSearch(addFoundItem)
 	end
 	local numItemsFound = 0
 	for bag = 0,NUM_BAG_SLOTS do
-		for slot = 1,GetContainerNumSlots(bag) do
-			local id = GetContainerItemID(bag,slot)
+		for slot = 1,ContainerFrame_GetContainerNumSlots(bag) do
+			local id = C_Container.GetContainerItemID(bag,slot)
 			if id then --We're not looking at an empty slot
 				currentItem = BagSaver.BuildItemTable(bag,slot,id)
 				if currentItem ~= nil and addFoundItem(currentItem, itemsFound) then
@@ -298,7 +298,7 @@ function BagSaver.IsItemExcludedFromDisposal(item)
 end
 
 function BagSaver.BuildItemTable(bag,slot,id)
-	local texture, count, locked, _, readable, lootable, link = GetContainerItemInfo(bag,slot)
+	local containerItemInfo = C_Container.GetContainerItemInfo(bag,slot)
 	local name, _link, quality, iLevel, reqLevel, class, subClass, maxStack, equipSlot, _iconID, value, classID, subClassID, bind, expacID, setID, isCraftingReagent = GetItemInfo(id)
 
 	if value == nil then
@@ -310,10 +310,9 @@ function BagSaver.BuildItemTable(bag,slot,id)
 	itemTable.bag = bag
 	itemTable.slot = slot
 	itemTable.value = value
-	itemTable.count = count
-	itemTable.texture = texture
+	itemTable.count = containerItemInfo.stackCount
 	itemTable.name = name
-	itemTable.link = link
+	itemTable.link = containerItemInfo.hyperlink
 	itemTable.quality = quality
 	itemTable.classID = classID
 	itemTable.subClassID = subClassID
@@ -324,50 +323,57 @@ function BagSaver.BuildItemTable(bag,slot,id)
 end
 
 function BagSaver.ItemIsSoulbound(item)
-	ScanningTooltip:ClearLines()
-	ScanningTooltip:SetBagItem(item.bag,item.slot)
+	local tooltipData = C_TooltipInfo.GetBagItem(item.bag,item.slot)
 
-	local i = 1
-	local text = nil
-	while (getglobal("ScanningTooltipFrameTextLeft" .. i) ~= nil) do
-		if (getglobal("ScanningTooltipFrameTextLeft" .. i):GetText() == ITEM_SOULBOUND) then
+	TooltipUtil.SurfaceArgs(tooltipData)
+	for _, line in ipairs(tooltipData.lines) do
+		TooltipUtil.SurfaceArgs(line)
+		if(line.leftText == ITEM_SOULBOUND) then
+			--print(item.name, " is soulbound!")
 			return true
 		end
-		i = i + 1
 	end
+	
+	for _, line in ipairs(tooltipData.lines) do
+	end
+	
 	return false
 end
 
-function BagSaver.ItemRequiresEngineering(item)
-	ScanningTooltip:ClearLines()
-	ScanningTooltip:SetBagItem(item.bag,item.slot)
+-- Ghetto as heck. UNIT_SKINNABLE_BOLTS contains the localized string "Requires Engineering"
+-- Need to break it into two words so we can check for all variants, e.g. "Requires Legion Engineering"
+local bs_eng_words = {}
+for word in UNIT_SKINNABLE_BOLTS:gmatch("%S+") do table.insert(bs_eng_words, word) end
+--print("word1: ", bs_eng_words[1])
+--print("word2: ", bs_eng_words[2])
 
-	for i=1,select("#", ScanningTooltip:GetRegions()) do
-		local region = select(i,ScanningTooltip:GetRegions())
-		if (region:GetObjectType() == "FontString" and region:GetText() ~= nil) then
-			if (string.find(region:GetText(), UNIT_SKINNABLE_BOLTS)) then --For some reason, this is the global that contains the localized string "Requires Engineering" 
-				return true
-			end
+function BagSaver.ItemRequiresEngineering(item)
+	local tooltipData = C_TooltipInfo.GetBagItem(item.bag,item.slot)
+
+	TooltipUtil.SurfaceArgs(tooltipData)
+	for _, line in ipairs(tooltipData.lines) do
+		TooltipUtil.SurfaceArgs(line)
+		if (string.find(line.leftText, bs_eng_words[1]) and string.find(line.leftText, bs_eng_words[2])) then
+			--print(item.name, " requires engineering!")
+			return true
 		end
 	end
-
+	
 	return false
 end
 
 function BagSaver.ItemRequiresFishing(item)
-	ScanningTooltip:ClearLines()
-	ScanningTooltip:SetBagItem(item.bag,item.slot)
+	local tooltipData = C_TooltipInfo.GetBagItem(item.bag,item.slot)
+	TooltipUtil.SurfaceArgs(tooltipData)
 
-	local requiresFishingString = ENCHANT_CONDITION_REQUIRES..PROFESSIONS_FISHING --ENCHANT_CONDITION_REQUIRES = "Requires ", PROFESSIONS_FISHING = "Fishing", localized
-	for i=1,select("#", ScanningTooltip:GetRegions()) do
-		local region = select(i,ScanningTooltip:GetRegions())
-		if (region:GetObjectType() == "FontString" and region:GetText() ~= nil) then
-			if (string.find(region:GetText(), requiresFishingString)) then
-				return true
-			end
+	for _, line in ipairs(tooltipData.lines) do
+		TooltipUtil.SurfaceArgs(line)
+		if (string.find(line.leftText, ENCHANT_CONDITION_REQUIRES) and string.find(line.leftText, PROFESSIONS_FISHING)) then
+			--print(item.name, " requires fishing!")
+			return true
 		end
 	end
-
+	
 	return false
 end
 
