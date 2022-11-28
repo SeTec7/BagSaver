@@ -2,7 +2,7 @@
 ## Title: BagSaver
 ## Notes: Keeps your bags clean of trash
 ## Author: SeTec42
-## Version: 0.10.02
+## Version: 0.10.02a
 ## SavedVariablesPerCharacter: BagSaverConfig
 
 BagSaverTables.lua

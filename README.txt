@@ -18,6 +18,10 @@ Slash commands (/bagsaver or /bs):
 
 
 ChangeLog:
+0.10.02a
+--------------------------------
+Fixed Polearm detection for Hunters
+
 0.10.02
 --------------------------------
 Evoker support added
